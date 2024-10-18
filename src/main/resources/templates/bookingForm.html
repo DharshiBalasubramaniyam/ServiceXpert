@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<div id="page" layout:fragment="content">
+  <div class="container my-5">
+    <h1 th:text="${message}"></h1>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow">
+          <div class="card-header bg-dark text-white text-center">
+            <h4 class="mb-0">Vehicle Booking Form</h4>
+          </div>
+          <div class="card-body">
+            <form action="#" th:action="@{/book}" th:object="${booking}" method="post">
+
+              <!-- Date Selection -->
+              <div class="mb-3">
+                <label for="date" class="form-label">Date of Service Reservation:</label>
+                <input type="date" class="form-control" th:field="*{date}" id="reservation-date"
+                       min="[[${#temporals.format(#temporals.today(), 'yyyy-MM-dd')}]]"/>
+                <div th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></div>
+              </div>
+
+              <script>
+                  // Get today's date in yyyy-MM-dd format
+                  const today = new Date().toISOString().split('T')[0];
+                  document.getElementById('reservation-date').setAttribute('min', today);
+
+                  // Disable Sundays
+                  document.getElementById("reservation-date").addEventListener("input", function() {
+                      const inputDate = new Date(this.value);
+                      const day = inputDate.getUTCDay();
+
+                      // If the selected day is Sunday (0), reset the value and show an error
+                      if (day === 0) {
+                          this.value = "";
+                          alert("Sundays are not allowed. Please choose another date.");
+                      }
+                  });
+              </script>
+
+              <!-- Preferred Time -->
+              <div class="mb-3">
+                <label for="time" class="form-label">Preferred Time:</label>
+                <select class="form-select w-full" th:field="*{time}" required>
+                  <option value="" disabled selected>Select Time</option>
+                  <option value="10:00">10 AM</option>
+                  <option value="11:00">11 AM</option>
+                  <option value="12:00">12 PM</option>
+                </select>
+                <div th:if="${#fields.hasErrors('time')}" th:errors="*{time}"></div>
+              </div>
+
+              <!-- Preferred Location -->
+              <div class="mb-3">
+                <label for="location" class="form-label">Preferred Location:</label>
+                <select class="form-select w-full" th:field="*{location}">
+                  <option value="" disabled selected>Select Location</option>
+                  <option value="Ampara">Ampara</option>
+                  <option value="Anuradhapura">Anuradhapura</option>
+                  <option value="Badulla">Badulla</option>
+                  <option value="Batticaloa">Batticaloa</option>
+                  <option value="Colombo">Colombo</option>
+                  <option value="Galle">Galle</option>
+                  <option value="Gampaha">Gampaha</option>
+                  <option value="Hambanthota">Hambanthota</option>
+                  <option value="Jaffna">Jaffna</option>
+                  <option value="Kaluthara">Kaluthara</option>
+                  <option value="Kandy">Kandy</option>
+                  <option value="District 12">Kegalle</option>
+                  <option value="Kegalle">kilinochchi</option>
+                  <option value="Kurunegala">Kurunegala</option>
+                  <option value="Mannar">Mannar</option>
+                  <option value="Mathale">Mathale</option>
+                  <option value="Matara">Matara</option>
+                  <option value="Monaragala">Monaragala</option>
+                  <option value="Mullaitivu">Mullaitivu</option>
+                  <option value="Nuwara Eliya">Nuwara Eliya</option>
+                  <option value="Pollonnaruwa">Pollonnaruwa</option>
+                  <option value="Puttalam">Puttalam</option>
+                  <option value="Ratnapura">Ratnapura</option>
+                  <option value="Trincomalee">Trincomalee</option>
+                  <option value="Vavuniya">Vavuniya</option>
+                </select>
+                <div th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></div>
+              </div>
+
+              <!-- Vehicle Number -->
+              <div class="mb-3">
+                <label for="vehicleNo" class="form-label">Vehicle Number:</label>
+                <input type="text" class="form-control" th:field="*{vehicleNo}" placeholder="Enter Vehicle Number"/>
+                <div th:if="${#fields.hasErrors('vehicleNo')}" th:errors="*{vehicleNo}"></div>
+              </div>
+
+              <!-- Mileage -->
+              <div class="mb-3">
+                <label for="mileage" class="form-label">Mileage:</label>
+                <input type="number" class="form-control" th:field="*{mileage}"/>
+                <div th:if="${#fields.hasErrors('mileage')}" th:errors="*{mileage}"></div>
+              </div>
+
+              <!-- Message -->
+              <div class="mb-3">
+                <label for="message" class="form-label">Message:</label>
+                <textarea class="form-control" th:field="*{message}" rows="3"></textarea>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="d-grid">
+                <button type="submit" class="btn btn-dark">Submit Booking</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</html>
