@@ -31,10 +31,6 @@ public class BookingService {
 
     }
 
-    public void deleteBooking() {
-
-    }
-
     public List<BookingDTO> getBookingsByUser(String username) {
 
         String query = "SELECT * FROM bookings WHERE username = ?";

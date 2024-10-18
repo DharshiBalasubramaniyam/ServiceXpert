@@ -15,12 +15,17 @@
           <div class="card-body">
             <form action="#" th:action="@{/book}" th:object="${booking}" method="post">
 
+              <div th:if="${errors}">
+                <ul>
+                  <li th:each="error : ${errors}" th:text="${error.defaultMessage}" style="color: red;"></li>
+                </ul>
+              </div>
+
               <!-- Date Selection -->
               <div class="mb-3">
                 <label for="date" class="form-label">Date of Service Reservation:</label>
                 <input type="date" class="form-control" th:field="*{date}" id="reservation-date"
                        min="[[${#temporals.format(#temporals.today(), 'yyyy-MM-dd')}]]"/>
-                <div th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></div>
               </div>
 
               <script>
@@ -50,7 +55,6 @@
                   <option value="11:00">11 AM</option>
                   <option value="12:00">12 PM</option>
                 </select>
-                <div th:if="${#fields.hasErrors('time')}" th:errors="*{time}"></div>
               </div>
 
               <!-- Preferred Location -->
@@ -84,21 +88,18 @@
                   <option value="Trincomalee">Trincomalee</option>
                   <option value="Vavuniya">Vavuniya</option>
                 </select>
-                <div th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></div>
               </div>
 
               <!-- Vehicle Number -->
               <div class="mb-3">
                 <label for="vehicleNo" class="form-label">Vehicle Number:</label>
                 <input type="text" class="form-control" th:field="*{vehicleNo}" placeholder="Enter Vehicle Number"/>
-                <div th:if="${#fields.hasErrors('vehicleNo')}" th:errors="*{vehicleNo}"></div>
               </div>
 
               <!-- Mileage -->
               <div class="mb-3">
                 <label for="mileage" class="form-label">Mileage:</label>
-                <input type="number" class="form-control" th:field="*{mileage}"/>
-                <div th:if="${#fields.hasErrors('mileage')}" th:errors="*{mileage}"></div>
+                <input type="text" class="form-control" th:field="*{mileage}"/>
               </div>
 
               <!-- Message -->

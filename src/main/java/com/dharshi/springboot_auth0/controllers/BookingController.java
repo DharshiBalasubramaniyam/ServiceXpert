@@ -45,9 +45,10 @@ public class BookingController {
 
         if (result.hasErrors()) {
             // If validation fails, return the form view with error messages
-            System.out.println(result.getModel());
+            // Can I add errors manually from binding result to model like model.addAttribute("errors", result.something);
             System.out.println(result.getFieldErrors());
-            System.out.println(result.getAllErrors());
+            System.out.println(result.getFieldErrors("location").toString());
+            model.addAttribute("errors", result.getFieldErrors());
             model.addAttribute("booking", bookingDTO);
             return "bookingForm";
         }

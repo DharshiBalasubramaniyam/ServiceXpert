@@ -18,7 +18,7 @@ public class BookingRowMapper implements RowMapper<BookingDTO> {
         booking.setTime(String.valueOf(rs.getObject("time", LocalTime.class)));
         booking.setLocation(rs.getString("location"));
         booking.setVehicleNo(rs.getString("vehicle_no"));
-        booking.setMileage(rs.getInt("mileage"));
+        booking.setMileage(rs.getString("mileage"));
         booking.setMessage(rs.getString("message"));
         booking.setUsername(rs.getString("username"));
         return booking;
